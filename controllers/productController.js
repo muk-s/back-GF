@@ -5,7 +5,7 @@ const createProduct = async (req, res) => {
     const { name, price, actualPrice, description, stock } = req.body;
     const imageFile = req.file ? req.file.filename : null;
 
-    const product = await Product.create({ name, price, actualPrice, description, stock: stock !== undefined ? parseInt(stock, 10) : 0, imageFile });
+    const product = await Product.create({ name, price, actualPrice, description, imageFile, stock});
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
