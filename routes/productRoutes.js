@@ -26,8 +26,8 @@ const upload = multer({ storage });
 router.get('/', getAllProducts);
 
 // Admin-only protected
-router.post('/', authenticate, adminOnly, upload.single('imageFile'), createProduct);
-router.put('/:id', authenticate, adminOnly, upload.single('imageFile'), updateProduct);
+router.post('/', authenticate, adminOnly, upload.single('imageFile1'), createProduct);
+router.put('/:id', authenticate, adminOnly, upload.single('imageFile1'), updateProduct);
 router.delete('/:id', authenticate, adminOnly, deleteProduct);
 
 module.exports = router;
