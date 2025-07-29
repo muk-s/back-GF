@@ -2,10 +2,18 @@ const Product = require('../models/product');
 
 const createProduct = async (req, res) => {
   try {
-    const { name, price, actualPrice, description } = req.body;
+    const { name, price, actualPrice, description, stock } = req.body;
     const imageFile = req.file ? req.file.filename : null;
 
-    const product = await Product.create({ name, price, actualPrice, description, imageFile });
+    const product = await Product.create({
+      name,
+      price,
+      actualPrice,
+      description,
+      stock: stock !== undefined ? parseInt(stock, 10) : 0,
+      imageFile,
+    });
+
     res.status(201).json(product);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -23,7 +31,7 @@ const getAllProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const { name, price, actualPrice, description } = req.body;
+    const { name, price, actualPrice, description, stock } = req.body;
     const imageFile = req.file ? req.file.filename : null;
 
     const product = await Product.findByPk(req.params.id);
@@ -34,6 +42,7 @@ const updateProduct = async (req, res) => {
       price,
       actualPrice,
       description,
+      stock: stock !== undefined ? parseInt(stock, 10) : product.stock,
       imageFile: imageFile || product.imageFile,
     });
 
@@ -61,4 +70,3 @@ module.exports = {
   updateProduct,
   deleteProduct,
 };
-
